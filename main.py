@@ -1,14 +1,20 @@
+is_running = True
+
 def main():
-    Choice_1 = input("Login - 1, Register - 2, Quit - 3 ")
-    if Choice_1 == "1":
-        Log_In()
-    elif Choice_1 == "2":
-        Register()
-    elif Choice_1 != "3":
-        print("Invalid Choice")
-        main()
+    global is_running
+    while is_running:
+        Choice_1 = input("Login - 1, Register - 2, Quit - 3 ")
+        if Choice_1 == "1":
+            Log_In()
+        elif Choice_1 == "2":
+            Register()
+        elif Choice_1 == "3":
+            is_running = False
+        else:
+            print("Invalid Choice")
 
 def Register():
+    NewUser = ""
     NewUser = input("Username? ")
     with open("test.txt") as file:
         for line in file:
@@ -40,9 +46,10 @@ def Log_In():
     with open("test.txt") as file:
         for line in file:
             row = line.rstrip().split(",")  
-            if Username + Password == row[0] + row[1]:
+            if Username == row[0] and Password == row[1]:
                 data1 = 1
                 Logged_In()
         if data1 == 0:
             Log_In()
+
 main()
